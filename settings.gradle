@@ -1,3 +1,4 @@
 rootProject.name = 'calculator'
 include 'domain'
+include 'service'
 

@@ -9,8 +9,11 @@ import java.util.stream.Collectors;
 // TODO AS ALLOCATOR SHOULD ALLOCATE 20% TO THE BIGGER (bigger cap rank) STABLE AND 80% TO the rest based on the cap
 public class Allocator {
 
-    public static Set<CryptoCurrencyToInvest> allocate(Set<CryptoCurrency> cryptos,
+
+    public Set<CryptoCurrencyToInvest> allocate(Set<CryptoCurrency> cryptos,
                                                        BigDecimal amount,
+                                                       CryptoCurrency stableCoin,
+                                                       BigDecimal percentageToAllocateStable,
                                                        BigDecimal minToInvest) {
         List<CryptoCurrency> cryptoCurrencies = cryptos.stream()
                 .filter(cryptoCurrency -> !cryptoCurrency.stable())
@@ -18,7 +21,7 @@ public class Allocator {
                 .toList();
 
         return cryptoCurrencies.stream()
-                .map(cryptoCurrency -> new CryptoCurrencyToInvest(cryptoCurrency.symbol(), cryptoCurrency.marketCap().multiply(amount)))
+                .map(cryptoCurrency -> new CryptoCurrencyToInvest(cryptoCurrency.symbol(), cryptoCurrency.marketCap().multiply(amount), false))
                 .collect(Collectors.toSet());
     }
 

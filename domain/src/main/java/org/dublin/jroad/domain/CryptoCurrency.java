@@ -10,7 +10,6 @@ public record CryptoCurrency(String symbol, BigDecimal priceUsd, BigDecimal mark
     public static final Comparator<CryptoCurrency> COMPARE_BY_MARKET_CAP_REVERSED = Comparator
             .comparing(CryptoCurrency::marketCap).reversed()
             .thenComparing(CryptoCurrency::symbol);
-// TODO AS TEST hash / Equals/ compare to comparator
     @Override
     public int hashCode() {
         return Objects.hashCode(symbol);

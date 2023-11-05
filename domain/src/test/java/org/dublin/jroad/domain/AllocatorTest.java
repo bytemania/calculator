@@ -18,13 +18,15 @@ class AllocatorTest {
     private static final BigDecimal AMOUNT = BigDecimal.valueOf(1000);
     private static final BigDecimal MIN_TO_INVEST = BigDecimal.valueOf(25);
 
+    private static final Allocator allocator = new Allocator();
+
     @Test
     @DisplayName("Allocator should skip all the stable coins")
     void shouldSkipTheStableCoins(Map<String, CryptoCurrency> cryptos) {
         //given
         Set<CryptoCurrency> currencies = new TreeSet<>(cryptos.values());
         //when
-        Set<CryptoCurrencyToInvest> result = Allocator.allocate(currencies, AMOUNT, MIN_TO_INVEST);
+        Set<CryptoCurrencyToInvest> result = allocator.allocate(currencies, AMOUNT, null, null, MIN_TO_INVEST);
         //then
         assertThat(result)
                 .isNotNull()
@@ -36,4 +38,5 @@ class AllocatorTest {
                     assertThat(cryptoCurrencyToInvest.cryptoName()).isNotIn(stables);
                 });
     }
+
 }
